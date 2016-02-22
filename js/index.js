@@ -16,7 +16,7 @@
 
 
       //board = processFile();
-      board = makeMaze(30,30);
+      board = makeMaze(15,15);
 
       buildWorld(board);
 

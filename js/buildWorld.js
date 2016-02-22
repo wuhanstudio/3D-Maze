@@ -40,7 +40,7 @@ function buildWorld(board){
         wall.position = new BABYLON.Vector3((x-xOffset) * size ,size,(y - yOffset) * size);
 
         wall.material = new BABYLON.StandardMaterial("texture1", scene);
-        wall.material.diffuseTexture = new BABYLON.Texture("../img/wall4.jpg", scene);
+        wall.material.diffuseTexture = new BABYLON.Texture("img/wall4.jpg", scene);
 
         wall.checkCollisions = true;
 
