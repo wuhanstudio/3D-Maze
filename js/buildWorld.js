@@ -1,14 +1,18 @@
+var size = 10,
+    xOffset = 0,
+    yOffset = 0;
 function buildWorld(board){
-  var x = 0, y = 0, size = 10,
+  var x = 0, y = 0,
       walls = [],
-      floorTiles = [],
-      xOffset = board[0].length/2,
+      floorTiles = [];
+
+      xOffset = board[0].length/2;
       yOffset = board.length/2;
 
     //   camera.position = new Vector3(board[0].length/2);
 
     //   var ground = BABYLON.Mesh.CreateGround("ground", board[0].length*size, board.length*size, 4, scene);
-    var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/floor5.jpg", board[0].length*size, board.length*size, 50, 0, 0.1, scene, false);
+    var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/floor5.jpg", board[0].length*size*1.5, board.length*size*1.5, 50, 0, 0.1, scene, false);
       ground.checkCollisions = true;
       ground.position.y = size/2;
 
@@ -24,6 +28,8 @@ function buildWorld(board){
 
       var roof = BABYLON.Mesh.CreateGround("roof", board[0].length*size, board.length*size, 4, scene);
       roof.position.y = size*1.5;
+      roof.position.x += size/2;
+      roof.position.z -= size/2;
       roof.rotation.x = Math.PI;
 
       var roofMaterial = new BABYLON.StandardMaterial("sky", scene);
@@ -65,6 +71,32 @@ function buildWorld(board){
 
 function spawns(board){
     printBoard(board);
+    board[0].forEach(function(d, i) {
+        if(d == '_'){
+            var start = BABYLON.Mesh.CreatePlane("start", size, scene, false, BABYLON.Mesh.DOUBLESIDE);
+            start.position = new BABYLON.Vector3(-(i-xOffset) * size ,size,(0 - yOffset) * size);
+            start.material = new BABYLON.StandardMaterial("startTex", scene);
+            start.material.diffuseColor = new BABYLON.Color3(0,1,0);
+            start.material.alpha = 0.4;
+
+            camera.position.x = -(i-xOffset) * size;
+            camera.position.y = size;
+            camera.position.z = -yOffset * size - size;
+
+        }
+    });
+
+    board[board.length -1].forEach(function(d, i) {
+        if(d == '_'){
+            var end = BABYLON.Mesh.CreatePlane("end", size, scene, false, BABYLON.Mesh.DOUBLESIDE);
+            end.position = new BABYLON.Vector3(-(i-xOffset) * size ,size,((board.length -1) - yOffset) * size);
+            end.material = new BABYLON.StandardMaterial("startTex", scene);
+            end.material.diffuseColor = new BABYLON.Color3(1,0,0);
+            end.material.alpha = 0.4;
+
+
+        }
+    });
 }
 
 function printBoard(board){

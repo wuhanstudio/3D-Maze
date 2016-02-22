@@ -3,9 +3,9 @@ var createScene = function(){
     var scene = new BABYLON.Scene(engine);
 
     // create a FreeCamera, and set its position to (x:0, y:5, z:-10)
-    camera = new BABYLON.UniversalCamera("Camera", new BABYLON.Vector3(5,10 , 150), scene);
+    camera = new BABYLON.UniversalCamera("Camera", new BABYLON.Vector3(0,0 ,0), scene);
     //BABYLON.ArcRotateCamera("ArcRotateCamera", Math.PI/2, Math.PI/4, 200, new BABYLON.Vector3(0, 0, 0), scene);
-    camera.rotation = new BABYLON.Vector3(0.05, -3.18, 0);
+    
 
     camera.speed = 1;
 
