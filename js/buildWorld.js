@@ -37,7 +37,7 @@ function buildWorld(board){
     yVal.forEach(function(xVal){
       if(xVal == '#'){
         var wall = BABYLON.Mesh.CreateBox("box" + x + y, size, scene);
-        wall.position = new BABYLON.Vector3((x-xOffset) * size ,size,(y - yOffset) * size);
+        wall.position = new BABYLON.Vector3(-(x-xOffset) * size ,size,(y - yOffset) * size);
 
         wall.material = new BABYLON.StandardMaterial("texture1", scene);
         wall.material.diffuseTexture = new BABYLON.Texture("img/wall4.jpg", scene);
@@ -59,5 +59,16 @@ function buildWorld(board){
     x = 0;
     y++;
   });
+  spawns(board);
   return {walls: walls, floor: floorTiles};
+}
+
+function spawns(board){
+    printBoard(board);
+}
+
+function printBoard(board){
+    board.forEach(function(d){
+        console.log(d.toString());
+    });
 }
