@@ -47,6 +47,7 @@ function buildWorld(board){
 
         wall.material = new BABYLON.StandardMaterial("texture1", scene);
         wall.material.diffuseTexture = new BABYLON.Texture("img/wall4.jpg", scene);
+        wall.material.bumpTexture = new BABYLON.Texture("img/wall4.jpg", scene);
 
         wall.checkCollisions = true;
 
