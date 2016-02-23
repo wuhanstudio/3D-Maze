@@ -1,56 +1,72 @@
 var squares = [];
 var svg;
 var cellSize = 20;
-var xOffset = 0, yOffset = 0;
+var xOffset = 5, yOffset = 5;
+var viewWindow = 10;
 
-makeMaze(22,22).forEach(function(line, i){
-    line.forEach(function(square, j){
-        squares.push({
-            x: j,
-            y: i,
-            square: square
-        });
-    });
-});
+var width = 10, height = 10;
+var player = {x: width|1 , y: height|1};
+var board = makeMaze(width, height);//.reduce(function(prev, cur) {return prev.concat(cur);});
 
 function drawMap(){
     svg = d3.selectAll("body")
-            .append("svg")
-            .attr("width", (d3.max(squares, function(d) { return d.x;})/4) * cellSize)
-            .attr("height", (d3.max(squares, function(d) { return d.y;})/4) * cellSize);
+            .selectAll("svg")
+            .data([0]);
+    svgWidth = svgHeight = viewWindow * cellSize;
+    svg.enter()
+       .append("svg")
+       .attr("width", svgWidth)
+       .attr("height", svgHeight);
+    svg.transition();
 
-    var width = svg.attr("width"),
-    height = svg.attr("height");
+    var data = (function() {
+        var firstCol = player.x-(viewWindow/2), lastCol = player.x+(viewWindow/2)+1;
+        // lastCol-firstCol === viewWindow;
+        // player.x === middleRow
+        var firstRow = player.y-(viewWindow/2), lastRow = player.y+(viewWindow/2)+1;
+        console.clear();
+        console.log("Player:" + player.x + "|" + player.y, "firstCol: " + firstCol, "lastCol: " + lastCol, "firstRow: " + firstRow, "lastRow: " + lastRow);
+        // var last = player.x+3; **************************************************Not Used?
+        return board.slice(firstCol,lastCol).map(function(arr, c) {
+            var col = c;
+            return arr.slice(firstRow,lastRow).map(function(val, row) {
+                return {value: val, position: [(firstCol+c),(firstRow+row)]}; //position == position on board
+            });
+        }).reduce(function(prev, cur) {
+            return prev.concat(cur);
+        });
+    })();
 
+    var spaces = svg.selectAll("rect").data(data, function(d) {return d.position[0]*10+d.position[1];});
 
+    spaces.enter().append('rect');
+    spaces.attr({
+            x: function(d) {return (d.position[0] - player.x - 1) * cellSize + svgWidth/2;},
+            y: function(d) {return (d.position[1] - player.y - 1) * cellSize + svgHeight/2;},
+            width: cellSize,
+            height: cellSize,
+            class: function(d) {return (d.value=='_' ? "path" : "");},
+            'data-pos': function(d) {return d.position;}
+        });
+    // spaces.transition().duration(50)
+    //     .attr({
+    //         x: function(d) {return (d.position[0] - player.x + 1) * cellSize;},
+    //         y: function(d) {return (d.position[1] - player.y + 1) * cellSize;},
+    //         'data-pos': function(d) {return d.position;}
+    //     });
+    spaces.exit().remove();
 
-var gridWidth = d3.max(squares, function(d) { return d.x; }) + 1,
-    gridHeight = d3.max(squares, function(d) { return d.y; }) + 1;
-
-var square = svg.append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-  .selectAll(".square")
-    .data(squares)
-  .enter().append("g")
-  .attr("class", function(d) {return (d.square=='_' ? "path" : "");})
-  .attr("transform", function(d) { return "translate(" + (d.x - gridWidth / 2 + xOffset) * cellSize + "," + (d.y - gridHeight / 2 + yOffset) * cellSize + ")"; });
-
-square.append("rect")
-    .attr("x", -cellSize / 2)
-    .attr("y", -cellSize / 2)
-    .attr("width", cellSize - 1)
-    .attr("height", cellSize - 1);
 }
 
 drawMap();
 
 function update(){
-    if(svg){
-        svg.remove();
+    // if(svg){
+        // svg.remove();
         drawMap();
-        console.log("redrawn");
+        // console.log("redrawn");
 
-    }
+    // }
 
 }
 
@@ -58,16 +74,16 @@ window.onkeypress = function(e){
     var key = e.keyCode ? e.keyCode : e.which;
     switch (key) {
         case 119: //w
-            yOffset++;
+            player.y--;
             break;
         case 97: //a
-            xOffset++;
+            player.x--;
             break;
         case 115: //s
-            yOffset--;
+            player.y++;
             break;
         case 100: //d
-            xOffset--;
+            player.x++;
             break;
         default:
         console.log(key + " pressed");

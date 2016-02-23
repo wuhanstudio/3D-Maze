@@ -1,3 +1,11 @@
-.path rect{
-    fill: white; 
+.path{
+    fill: white;
+}
+
+body {
+    background: blue;
+}
+
+svg {
+    background: orange;
 }
