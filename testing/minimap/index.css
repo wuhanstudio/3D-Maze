@@ -9,3 +9,23 @@ body {
 svg {
     background: orange;
 }
+
+.miniMap {
+    width: 208px;
+    height: 208px;
+    position: relative;
+    display: inline-block;
+
+
+}
+.miniMapDot {
+    content: " ";
+    background: red;
+    width: 13px;
+    height: 13px;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 10px;
+}
