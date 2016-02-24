@@ -1,10 +1,10 @@
 var squares = [];
 var svg;
-var cellSize = 13;
+var cellSize = 14;
 var xOffset = 5, yOffset = 5;
-var viewWindow = 17;
+var viewWindow = 16;
 
-var width = 20, height = 20;
+var width = 15, height = 15;
 var player = {x: width|1 , y: height|1};
 var board = makeMaze(width, height);//.reduce(function(prev, cur) {return prev.concat(cur);});
 
@@ -29,7 +29,7 @@ function drawMap(){
         var firstRow = player.y-(viewWindow/2), lastRow = player.y+(viewWindow/2)+1;
         firstRow = (firstRow >= 0 ? firstRow : 0);
         lastRow = (lastRow >= board[0].length-1 ? lastRow : board[0].length-1);
-        //console.log("Player:" + player.x + "|" + player.y, "firstCol: " + firstCol, "lastCol: " + lastCol, "firstRow: " + firstRow, "lastRow: " + lastRow);
+        console.log("Player:" + player.x + "|" + player.y, "firstCol: " + firstCol, "lastCol: " + lastCol, "firstRow: " + firstRow, "lastRow: " + lastRow);
         // var last = player.x+3; **************************************************Not Used?
         slicedBoard = board.slice(firstCol,lastCol).map(function(arr, c) {
             var col = c;
@@ -46,8 +46,8 @@ function drawMap(){
 
     spaces.enter().append('rect');
     spaces.attr({
-            y: function(d) {return (d.position[0] - player.x - 1) * cellSize + svgWidth/2;},
-            x: function(d) {return (d.position[1] - player.y - 1) * cellSize + svgHeight/2;},
+            y: function(d) {return (d.position[0] - player.x - 1) * cellSize + (svgWidth + cellSize)/2;},
+            x: function(d) {return (d.position[1] - player.y - 1) * cellSize + (svgHeight + cellSize)/2;},
             width: cellSize,
             height: cellSize,
             class: function(d) {return (d.value=='_' ? "path" : "");},
