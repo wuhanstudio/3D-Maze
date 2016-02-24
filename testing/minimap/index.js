@@ -29,7 +29,7 @@ function drawMap(){
         var firstRow = player.y-(viewWindow/2), lastRow = player.y+(viewWindow/2)+1;
         firstRow = (firstRow >= 0 ? firstRow : 0);
         lastRow = (lastRow >= board[0].length-1 ? lastRow : board[0].length-1);
-        console.log("Player:" + player.x + "|" + player.y, "firstCol: " + firstCol, "lastCol: " + lastCol, "firstRow: " + firstRow, "lastRow: " + lastRow);
+        //console.log("Player:" + player.x + "|" + player.y, "firstCol: " + firstCol, "lastCol: " + lastCol, "firstRow: " + firstRow, "lastRow: " + lastRow);
         // var last = player.x+3; **************************************************Not Used?
         slicedBoard = board.slice(firstCol,lastCol).map(function(arr, c) {
             var col = c;

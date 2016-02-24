@@ -3,11 +3,20 @@
 }
 
 body {
-    background: blue;
+    background-color: green;
+
 }
 
-svg {
-    background: orange;
+
+.mapFrame {
+    width: 215px;
+    height: 215px;
+    position: relative;
+    display: inline-block;
+    -webkit-clip-path: circle(102px at center);
+    -moz-clip-path: circle(102px at center);
+    background-color: #CC9900;
+    opacity: 0.5;
 }
 
 .miniMap {
@@ -15,6 +24,10 @@ svg {
     height: 208px;
     position: relative;
     display: inline-block;
+    -webkit-clip-path: circle(98px at center);
+    -moz-clip-path: circle(98px at center);
+    fill: black;
+    background-color: black;
 
 
 }
