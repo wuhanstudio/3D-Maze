@@ -24,7 +24,7 @@ function buildWorld(board){
       ground.material = groundMaterial;
       var firstPos = false;
 
-
+      console.log(ground);
 
       var roof = BABYLON.Mesh.CreateGround("roof", board[0].length*size, board.length*size, 4, scene);
       roof.position.y = size*1.5;
@@ -48,7 +48,6 @@ function buildWorld(board){
         wall.material = new BABYLON.StandardMaterial("texture1", scene);
         wall.material.diffuseTexture = new BABYLON.Texture("img/wall4.jpg", scene);
         wall.material.bumpTexture = new BABYLON.Texture("img/wall4.jpg", scene);
-
         wall.checkCollisions = true;
 
         walls.push(wall);
