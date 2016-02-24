@@ -10,14 +10,14 @@ var board = makeMaze(width, height);//.reduce(function(prev, cur) {return prev.c
 
 function drawMap(){
     svg = d3.selectAll(".miniMap")
-            .selectAll("svg")
-            .data([0]);
+    .selectAll("svg")
+    .data([0]);
     svgWidth = viewWindow * cellSize;
     svgHeight = viewWindow * cellSize;
     svg.enter()
-       .append("svg")
-       .attr("width", svgWidth)
-       .attr("height", svgHeight);
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
     svg.transition();
 
     var data = (function() {
@@ -46,13 +46,13 @@ function drawMap(){
 
     spaces.enter().append('rect');
     spaces.attr({
-            y: function(d) {return (d.position[0] - player.x - 1) * cellSize + (svgWidth + cellSize)/2;},
-            x: function(d) {return (d.position[1] - player.y - 1) * cellSize + (svgHeight + cellSize)/2;},
-            width: cellSize,
-            height: cellSize,
-            class: function(d) {return (d.value=='_' ? "path" : "");},
-            'data-pos': function(d) {return d.position;}
-        });
+        y: function(d) {return (d.position[0] - player.x - 1) * cellSize + (svgWidth + cellSize)/2;},
+        x: function(d) {return (d.position[1] - player.y - 1) * cellSize + (svgHeight + cellSize)/2;},
+        width: cellSize,
+        height: cellSize,
+        class: function(d) {return (d.value=='_' ? "path" : "");},
+        'data-pos': function(d) {return d.position;}
+    });
     // spaces.transition().duration(50)
     //     .attr({
     //         x: function(d) {return (d.position[0] - player.x + 1) * cellSize;},
@@ -67,9 +67,9 @@ drawMap();
 
 function update(){
     // if(svg){
-        // svg.remove();
-        drawMap();
-        // console.log("redrawn");
+    // svg.remove();
+    drawMap();
+    // console.log("redrawn");
 
     // }
 
@@ -79,17 +79,17 @@ window.onkeypress = function(e){
     var key = e.keyCode ? e.keyCode : e.which;
     switch (key) {
         case 119: //w
-            player.x--;
-            break;
+        player.x--;
+        break;
         case 97: //a
-            player.y--;
-            break;
+        player.y--;
+        break;
         case 115: //s
-            player.x++;
-            break;
+        player.x++;
+        break;
         case 100: //d
-            player.y++;
-            break;
+        player.y++;
+        break;
         default:
         console.log(key + " pressed");
         return;

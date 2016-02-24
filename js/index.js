@@ -4,8 +4,13 @@
 
       scene = createScene();
 
+      board = makeMaze(15,15);
+
+      miniMap = miniMap().board(board);
+
       engine.runRenderLoop(function() {
-          scene.render();
+          miniMap.drawMap();
+         scene.render();
       });
 
       window.addEventListener('resize', function() {
@@ -15,8 +20,6 @@
 
 
 
-      //board = processFile();
-      board = makeMaze(15,15);
 
       buildWorld(board);
 
@@ -53,16 +56,32 @@
 
       window.onkeypress = function(e){
           var key = e.keyCode ? e.keyCode : e.which;
+          console.log(key + " pressed");
+
           if (canJump && key == 32) {
              cameraJump();
              canJump = false;
              setTimeout(function () {
                  canJump = true;
              }, 1000);
-         }else{
-            //console.log(key + " pressed");
+         }else if (key == 96) {
+             console.log(Math.round(camera.position.x), Math.round(camera.position.y), Math.round(camera.position.z));
+         }
+      };
+
+      window.onkeydown = function(e){
+          var key = e.keyCode ? e.keyCode : e.which;
+          if(key == 16){
+              camera.speed = 3;
           }
       };
+      window.onkeyup = function(e){
+          var key = e.keyCode ? e.keyCode : e.which;
+          if(key == 16){
+              camera.speed = 1;
+          }
+      };
+
 
 
   });

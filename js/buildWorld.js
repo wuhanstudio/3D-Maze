@@ -1,6 +1,4 @@
-var size = 10,
-    xOffset = 0,
-    yOffset = 0;
+
 function buildWorld(board){
   var x = 0, y = 0,
       walls = [],
@@ -47,7 +45,7 @@ function buildWorld(board){
 
         wall.material = new BABYLON.StandardMaterial("texture1", scene);
         wall.material.diffuseTexture = new BABYLON.Texture("img/wall4.jpg", scene);
-        wall.material.bumpTexture = new BABYLON.Texture("img/wall4.jpg", scene);
+        //wall.material.bumpTexture = new BABYLON.Texture("img/wall4.jpg", scene);
         wall.checkCollisions = true;
 
         walls.push(wall);
